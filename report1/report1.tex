@@ -51,6 +51,9 @@
 
 \section{役割ごとの機能の列挙と説明}
 以下に挙げる機能を想定している。
+\subsection{共通}
+\subsubsection{ログイン}
+IDとパスワードを入力することでログインできる。
 \subsection{参加者}
 \subsubsection{イベント一覧の確認}
 アプリケーション上に登録されているイベント一覧を表示する。
@@ -74,13 +77,13 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{ermodel.png}
+    \includegraphics[scale=0.4]{ermodel.png}
     \caption{実体関連図}
 \end{figure}
 
 \subsection{ユーザー(User)}
 参加者・主催者・スタッフに共通の実体集合。
-IDと名前(name)を属性として持つ。
+ID・パスワード(password)・名前(name)を属性として持つ。
 
 \subsection{イベント(Event)}
 イベントを表現する実体集合。
@@ -88,7 +91,7 @@ ID・イベント名(title)・開催日時(date)・開催場所(place)・定員(
 
 \subsection{予約(Reservation)}
 1件の予約を表す実体集合。あるユーザーが、あるイベントに申し込んだ際に生成される。
-トークン(token)と受付状態(reception)を属性として持つ。
+トークン(token)と受付状態(accepted)を属性として持つ。
 トークンはユニークに生成される文字列であり、主キー及びQRコードの発行のために利用される。
 
 \subsection{各関連集合}

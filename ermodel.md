@@ -7,28 +7,30 @@ rel3{Relation};
 
 user[User];
 id((<u>ID</u>));
+password((Password));;
 name((Name));
 
 reservation[Reservation];
 token((<u>Token</u>));
-reception((reception));
+accepted((Accepted));
 
 event[Event];
 eventID((<u>ID</u>));
 title((Title));
-day((Day));
+date((Date));
 detail((Place));
 capacity((Capacity));
 
 user --- id
+user --- password
 user --- name
 
 reservation --- token
-reservation --- reception
+reservation --- accepted
 
 event --- eventID
 event --- title
-event --- day
+event --- date
 event --- detail
 event --- capacity
 

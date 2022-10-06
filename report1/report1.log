@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.11.9)  6 OCT 2022 15:54
+This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.11.9)  6 OCT 2022 16:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -275,12 +275,7 @@ LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
 ]
 File: ermodel.png Graphic file (type bmp)
 <ermodel.png>
-
-Overfull \hbox (20.6875pt too wide) in paragraph at lines 77--78
- [][] 
- []
-
-[2] [3] (./report1.aux) ) 
+ [2] [3] (./report1.aux) ) 
 Here is how much of TeX's memory you used:
  4088 strings out of 479956
  56246 string characters out of 5884286
@@ -290,4 +285,4 @@ Here is how much of TeX's memory you used:
  929 hyphenation exceptions out of 8191
  66i,6n,72p,276b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report1.dvi (3 pages, 6968 bytes).
+Output written on report1.dvi (3 pages, 7140 bytes).
