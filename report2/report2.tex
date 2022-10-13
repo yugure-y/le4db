@@ -56,16 +56,16 @@
 「イベント」の属性であるイベントID(EventID)とイベント名(Title)と開催日時(Date)と開催場所(Place)と定員(Capacity)を属性として持つ。
 
 ここで、各関連集合について、関連集合の持つ属性と参加している実体集合の主キーを合わせたものを各関係のスキーマとする。
-
+イベントとユーザーの間は多対多なので、新たに「主催者」「スタッフ」を表す関係を定義する。
 求めた関係スキーマを以下に記す。
 
 \begin{description}
   \item[予約] \underline{トークン}, ユーザーID, イベントID, 受付状態
-  \item[ユーザー] \underline{ユーザーID}, \underline{参加イベントID}, 名前, パスワード
-  \item[イベント] \underline{イベントID}, \underline{スタッフユーザーID}, イベント名, 開催日時, 開催場所, 定員 
+  \item[ユーザー] \underline{ユーザーID}, 名前, パスワード
+  \item[イベント] \underline{イベントID}, イベント名, 開催日時, 開催場所, 定員
+  \item[主催者] \underline{ユーザーID}, \underline{イベントID}  
+  \item[スタッフ] \underline{ユーザーID}, \underline{イベントID}
 \end{description}
-
-このままでは非常に冗長かつ更新不整合の問題が生じる可能性が高い。
 
 \section{自明でない関数従属性の導出}
 自明でない関数従属性は以下の通りである。
@@ -75,6 +75,11 @@
   \item {トークン} $\rightarrow$ {受付状態}
 \end{itemize}
 これらは、トークンが実体集合「予約」の主キーであることより明らかである。
+\begin{itemize}
+  \item {ユーザーID, イベントID} $\rightarrow$ {トークン}
+  \item {ユーザーID, イベントID} $\rightarrow$ {受付状態}
+\end{itemize}
+ユーザーIDとイベントIDが分かれば、誰のどのイベントに対する予約かが判明するためである。
 \begin{itemize}
   \item {ユーザーID} $\rightarrow$ {名前}
   \item {ユーザーID} $\rightarrow$ {パスワード}
@@ -91,12 +96,8 @@
 \section{多値従属性の確認}
 以下の自明でないかつ関数従属性でない多値従属性が存在する。
 \begin{itemize}
-  \item {ユーザーID} $\rightarrow \rightarrow$ {参加イベントID}
+  \item {トークン} $\rightarrow \rightarrow$ {ユーザーID, イベントID}
 \end{itemize}
-ユーザーIDと参加イベントIDからなる関係とユーザーID, 名前, パスワードからなる関係を自然結合することで関係「ユーザー」が得られるため。
-\begin{itemize}
-  \item {イベントID} $\rightarrow \rightarrow$ {スタッフユーザーID}
-\end{itemize}
-イベントIDとスタッフユーザーIDからなる関係とイベントID, イベント名, 開催日時, 開催場所, 定員からなる関係を自然結合することで関係「イベント」が得られるため。
+ユーザーIDとイベントIDが分かれば、誰のどのイベントに対する予約かが判明するためである。
 
 \end{document}
