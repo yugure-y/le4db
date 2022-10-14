@@ -37,21 +37,11 @@
 \section{課題2での導出事項}
 求めた関係スキーマを以下に記す。
 
-\begin{description}
-  \item[予約] \underline{トークン}, ユーザーID, イベントID, 受付状態
-  \item[ユーザー] \underline{ユーザーID}, 名前, パスワード
-  \item[イベント] \underline{イベントID}, イベント名, 開催日時, 開催場所, 定員
-  \item[主催者] \underline{ユーザーID}, \underline{イベントID}  
-  \item[スタッフ] \underline{ユーザーID}, \underline{イベントID} 
-\end{description}
-
 自明でない関数従属性は以下の通りである。
 \begin{itemize}
   \item {トークン} $\rightarrow$ {ユーザーID}
   \item {トークン} $\rightarrow$ {イベントID}
   \item {トークン} $\rightarrow$ {受付状態}
-  \item {ユーザーID, イベントID} $\rightarrow$ {トークン}
-  \item {ユーザーID, イベントID} $\rightarrow$ {受付状態}
   \item {ユーザーID} $\rightarrow$ {名前}
   \item {ユーザーID} $\rightarrow$ {パスワード}
   \item {イベントID} $\rightarrow$ {イベント名}
@@ -60,28 +50,38 @@
   \item {イベントID} $\rightarrow$ {定員}
 \end{itemize}
 
-以下の自明でないかつ関数従属性でない多値従属性が存在する。
-\begin{itemize}
-  \item {トークン} $\rightarrow \rightarrow$ {ユーザーID, イベントID}
-\end{itemize}
-
 \section{関係スキーマの再設計}
 
-{ユーザーID, イベントID} $\rightarrow$ {トークン}及び{ユーザーID, イベントID} $\rightarrow$ {受付状態}は
-関係「予約」のキーを含まないが、{ユーザーID, イベントID}は関係「予約」の候補キーであるため、第3正規形である。
+全ての属性を一つにまとめた関係スキーマ「イベント予約」を用意する。
+\begin{description}
+  \item[イベント予約] {ユーザーID, 名前, パスワード, イベントID, イベント名, 開催日時, 開催場所, 定員, チケット料金, トークン, 受付状態}
+\end{description}
 
-ここで、関係「予約」を{ユーザーID, イベントID} $\rightarrow$ {トークン}で分解することでボイスコッド正規形にすることも考えられるが、
-この場合、トークン・ユーザーID・イベントIDはいずれも更新されることがない(生成時に自動的に値が決定されるのみ)。
-そのため関係「予約」の更新時不整合については考慮しなくてよいため、関係スキーマはこのままとする。
+この関係スキーマに分解法を適用させていくことでBCNFに正規化する。
 
+{ユーザーID} $\rightarrow$ {名前, パスワード}で分解する。
+
+\begin{description}
+  \item[ユーザー] {ユーザーID, 名前, パスワード}
+  \item[イベント予約] {ユーザーID, イベントID, イベント名, 開催日時, 開催場所, 定員, チケット料金, トークン, 受付状態}
+\end{description}
+
+「ユーザー」はBCNFに正規化された。次に、「イベント予約」を
+{イベントID} $\rightarrow$ {イベント名, 開催日時, 開催場所, 定員}で分解する。
+
+\begin{description}
+  \item[ユーザー] {ユーザーID, 名前, パスワード}
+  \item[イベント] {イベントID, イベント名, 開催日時, 開催場所, 定員}
+  \item[予約] {ユーザーID, イベントID, トークン, 受付状態}
+\end{description}
+
+以上で関係スキーマが全てBCNFに正規化された。
 決定した関係スキーマを再掲する。
 
 \begin{description}
-  \item[予約情報] \underline{トークン}, ユーザーID, イベントID, 受付状態
   \item[ユーザー] \underline{ユーザーID}, 名前, パスワード
   \item[イベント] \underline{イベントID}, イベント名, 開催日時, 開催場所, 定員
-  \item[主催者] \underline{ユーザーID}, \underline{イベントID}  
-  \item[スタッフ] \underline{ユーザーID}, \underline{イベントID} 
+  \item[予約] \underline{ユーザーID}, \underline{イベントID}, トークン, 受付状態
 \end{description}
 
 \end{document}

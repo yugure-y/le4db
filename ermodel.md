@@ -1,12 +1,12 @@
 ```mermaid
 graph TB;
 
-rel1{Relation};
-rel2{Relation};
-rel3{Relation};
+rel1{イベント予約};
+rel2{予約対象};
+rel3{イベントスタッフ};
 
 user[User];
-id((<u>ID</u>));
+id((<u>User_ID</u>));
 password((Password));;
 name((Name));
 
@@ -15,7 +15,7 @@ token((<u>Token</u>));
 accepted((Accepted));
 
 event[Event];
-eventID((<u>ID</u>));
+eventID((<u>Event_ID</u>));
 title((Title));
 date((Date));
 detail((Place));
