@@ -1,0 +1,173 @@
+\documentclass[dvipdfmx]{jarticle}
+\usepackage{graphicx}
+\usepackage{here}
+\usepackage{ascmac}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=20mm]{geometry}
+\usepackage{listings,jlisting} %日本語のコメントアウトをする場合jvlisting（もしくはjlisting）が必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+\setcounter{tocdepth}{4}
+\pagestyle{empty}
+\begin{document}
+\title{計算機科学実験及演習4 データベース 課題4}
+\author{1029-32-6611 山田裕晃}
+\maketitle
+
+\section{概要}
+課題1,2,3で設計したデータベースを実際にPostgreSQLもしくはSQLiteで構築し、SQLによる検索文を作成する。
+
+\section{関数従属性・正規形に関する考察}
+
+表をDBMSで定義する場合は、主キー及び外部キーを設定することによって従属性を保持することができる。
+
+
+\section{関係表の定義}
+
+関係表を定義するためのSQL文は以下の通りである。
+
+\begin{lstlisting}[caption=definition]
+CREATE TABLE event_user(
+  user_id INT PRIMARY KEY,
+  name VARCHAR(32),
+  password VARCHAR(32)
+);
+
+CREATE TABLE event(
+  event_id INT PRIMARY KEY,
+  title VARCHAR(32),
+  date DATE,
+  place VARCHAR(32),
+  capacity INT
+);
+
+CREATE TABLE reservation(
+  user_id INT,
+  event_id INT,
+  token varchar(32),
+  accepted bit,
+  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES event_user (user_id),
+  CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES event (event_id),
+  PRIMARY KEY(user_id, event_id)
+);
+\end{lstlisting}
+
+ユーザーID・イベントIDを主キーとして設定しているので、
+
+\section{データの作成・挿入}
+
+下図のようなデータを作成する。
+
+\begin{table}[H]
+  \centering
+   \begin{tabular}{|r|l|l|}
+    \hline
+    ユーザーID & 名前 & パスワード \\
+    \hline \hline
+    1 & 山田 & yamada \\
+    2 & 伊藤 & ito \\
+    3 & 下田 & shimoda \\
+    4 & 加藤 & kato \\
+    \hline
+  \end{tabular}
+  \caption{ユーザー}
+\end{table}
+
+\begin{table}[H]
+  \centering
+   \begin{tabular}{|r|l|r|l|r|}
+    \hline
+    イベントID & イベント名 & 日時 & 場所 & 定員 \\
+    \hline \hline
+    1 & 京都大学11月祭 & 2022/11/19 & 京都大学 & 1000 \\
+    2 & 計算機科学実験及演習4 & 2022/10/20 & 総合研究7号館 & 40 \\
+    \hline
+  \end{tabular}
+  \caption{イベント}
+\end{table}
+
+\begin{table}[H]
+  \centering
+   \begin{tabular}{|r|r|l|r|}
+    \hline
+    ユーザーID & イベントID & トークン & 受付状態 \\
+    \hline \hline
+    1 & 1 & abcde & 0 \\
+    1 & 2 & fghij & 1 \\
+    2 & 2 & klmno & 1 \\
+    3 & 1 & pqrst & 0 \\
+    4 & 2 & uvwxy & 0 \\
+    \hline
+  \end{tabular}
+  \caption{予約}
+\end{table}
+
+データを挿入するためのSQL文は以下の通りである。
+
+\begin{lstlisting}[caption=insertion]
+  INSERT INTO event_user (user_id, name, password) VALUES 
+    (1, '山田', 'yamada'),
+    (2, '伊藤', 'ito'),
+    (3, '下田', 'shimoda'),
+    (4, '加藤', 'kato');
+
+  INSERT INTO event (event_id, title, date, place, capacity) VALUES 
+    (1, '京都大学11月祭', '2022-11-19', '京都大学', 1000),
+    (2, '計算機科学実験及演習4', '2022-10-20', '総合研究7号館', 40);
+
+  INSERT INTO reservation (user_id, event_id, token, accepted) VALUES 
+    (1, 1, 'abcde', '0'),
+    (1, 2, 'fghij', '1'),
+    (2, 2, 'klmno', '1'),
+    (3, 1, 'pqrst', '0'),
+    (4, 2, 'uvwxy', '0');
+\end{lstlisting}
+
+データを挿入した表の出力結果はそれぞれ以下の通りである。
+
+\begin{lstlisting}[caption=insertion\_result]
+eventdb=# select * from event_user;
+ user_id | name | password
+---------+------+----------
+       1 | 山田 | yamada
+       2 | 伊藤 | ito
+       3 | 下田 | shimoda
+       4 | 加藤 | kato
+(4 rows)
+
+eventdb=# select * from event;
+ event_id |         title         |    date    |     place     | capacity
+----------+-----------------------+------------+---------------+----------
+        1 | 京都大学11月祭        | 2022-11-19 | 京都大学      |     1000
+        2 | 計算機科学実験及演習4 | 2022-10-20 | 総合研究7号館 |       40
+(2 rows)
+
+eventdb=# select * from reservation;
+ user_id | event_id | token | accepted
+---------+----------+-------+----------
+       1 |        1 | abcde | 0
+       1 |        2 | fghij | 1
+       2 |        2 | klmno | 1
+       3 |        1 | pqrst | 0
+       4 |        2 | uvwxy | 0
+(5 rows)
+\end{lstlisting}
+
+\end{document}
