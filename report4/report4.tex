@@ -36,8 +36,15 @@
 
 \section{関数従属性・正規形に関する考察}
 
-表をDBMSで定義する場合は、主キー及び外部キーを設定することによって従属性を保持することができる。
+表をDBMSで定義する場合は、主キーを設定することによって従属性を保持することができる。
+主キーを設定することで、【主キーの属性】→【その他の属性】という関数従属性が満たされるようになる。
 
+これを正規形の定義に当てはめて考えると、関係データベースにおいては、主キーを設定することによって
+その関係表において第3正規形を保つことができると言える。
+
+あるテーブルに外部キーを設定し、【このテーブルの主キー】→【外部キー】という従属性を持っているとする。
+その外部キーに何らかの属性が関数従属していた場合、このテーブルの主キーとの間に推移従属性が生じる。
+推移従属性が存在すると第3正規形の条件を満たさなくなるので、注意が必要である。
 
 \section{関係表の定義}
 
@@ -61,15 +68,14 @@ CREATE TABLE event(
 CREATE TABLE reservation(
   user_id INT,
   event_id INT,
-  token varchar(32),
+  token varchar(32) PRIMARY KEY,
   accepted bit,
-  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES event_user (user_id),
-  CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES event (event_id),
-  PRIMARY KEY(user_id, event_id)
 );
 \end{lstlisting}
 
-ユーザーID・イベントIDを主キーとして設定しているので、
+ユーザー・イベント・予約のそれぞれの表では、
+ユーザーID・イベントID・トークンをそれぞれ主キーに設定している。
+よって、関数従属性は保持される。
 
 \section{データの作成・挿入}
 
