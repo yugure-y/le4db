@@ -8,4 +8,7 @@ urlpatterns = [
     path('registration', views.EventRegistrationView.as_view(),
         name='event-registration',
     ),
+    path('list', views.EventListView.as_view(),
+        name='event-list',
+    ),
 ]

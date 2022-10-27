@@ -11,3 +11,10 @@ class EventRegistrationView(generic.CreateView):
 
     def get_success_url(self):
         return reverse('home:home-index')
+
+class EventListView(generic.ListView):
+    model = Event
+    template_name = "event/list.html"
+
+    def get_queryset(self):
+        return Event.objects.order_by('date')

@@ -1,0 +1,35 @@
+{% extends 'home/base-light.html' %} {% load static %} {% load django_bootstrap5 %} {% block title %} イベント登録 {% endblock title %}
+
+{% block contents %}
+
+<div class="container-fluid">
+    <br>
+
+    <div class="card">
+        <div class="card-header">
+            <h1>直近のイベント一覧</h1><br>
+        </div>
+
+        <div class="card-body">
+            予約したいイベントを選択することで、予約画面に移動できます。
+        </div>
+    </div>
+    {% for event in object_list %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ event.title }}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">{{ event.date }}</h6>
+                <p class="card-text">
+                    開催場所：{{ event.place }} <br>
+                    定員：{{ event.capacity }}
+                </p>
+                <button type="button" class="btn btn-primary">予約する</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    
+{% endblock %}
