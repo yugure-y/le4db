@@ -6,6 +6,9 @@ class Event(models.Model):
         verbose_name='イベント'
         verbose_name_plural = 'イベント'
 
+    def __str__(self):
+        return str(self.title)
+
     title = models.CharField(
         verbose_name = 'イベント名',
         max_length = 50,

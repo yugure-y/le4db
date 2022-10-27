@@ -22,4 +22,5 @@ from socket import gethostname
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
+    path('event/', include('event.urls')),
 ]
