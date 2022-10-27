@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  reserve-app:
+    build: .
+    ports:
+      - "8080:8000"
+    command: bash -c "python3 manage.py runserver 0:8000"
+    volumes:
+      - .:/code
