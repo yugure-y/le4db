@@ -24,7 +24,7 @@
                     開催場所：{{ event.place }} <br>
                     定員：{{ event.capacity }}
                 </p>
-                <button type="button" class="btn btn-primary">予約する</button>
+                <a href="{% url 'event:event-reserve' event.pk %}" type="button" class="btn btn-primary">予約する</a>
             </div>
         </div>
     </div>

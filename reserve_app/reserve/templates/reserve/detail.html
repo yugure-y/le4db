@@ -14,19 +14,6 @@
         イベントをクリックすると、詳細やQRコードが確認できます。
     </div>
 </div>
-  <br>
-  {% for reserve in reservations %}
-  <div class="card">
-    <div class="card-header">
-      <h2>{{ reserve.event.title }}</h2>
-    </div>
-    <div class="card-body">
-      {{ reserve.event.date }} / {{ reserve.event.place }}
-      <div class="text-right">
-        <a href="{% url 'reserve:reserve-detail' reserve.pk %}" type="button" class="btn btn-primary">QRコード確認</a>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
+<img src="data:image/png;base64,{{ qr }}"/>
 </div>
 {% endblock %}
