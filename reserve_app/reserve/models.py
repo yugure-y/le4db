@@ -1,4 +1,5 @@
 from django.db import models
+from uuid import uuid4
 
 # Create your models here.
 class Reservation(models.Model):
@@ -21,6 +22,8 @@ class Reservation(models.Model):
     )
 
     token = models.UUIDField(
+        primary_key = True,
+        default=uuid4,
         verbose_name = 'トークン',
         max_length = 50,
     )
