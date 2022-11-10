@@ -89,13 +89,12 @@
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
           <ul class="list-unstyled">
-            <li><a href="{% url 'home:home-index' %}"> <i class="icon-home"></i>ホーム </a></li>
+            <li><a href="{% url 'home:home-index' %}"> <i class="icon-home"></i>マイページ </a></li>
             <li><a href="{% url 'event:event-list' %}"> <i class="icon-check"></i>イベント予約 </a></li>
-            <li><a href="tables.html"> <i class="icon-list"></i>予約内容の確認 </a></li>
           </ul><span class="heading">Staff Only</span>
           <ul class="list-unstyled">
-            <li> <a href="#"> <i class="icon-form"></i>受付画面 </a></li>
-            <li> <a href="{% url 'event:event-registration' %}"> <i class="icon-screen"></i>イベント管理 </a></li>
+            <li> <a href="{% url 'reserve:accept' %}"> <i class="icon-form"></i>受付画面 </a></li>
+            <li> <a href="{% url 'event:event-registration' %}"> <i class="icon-screen"></i>イベント登録 </a></li>
           </ul>
           </ul><span class="heading">Admin Only</span>
           <ul class="list-unstyled">

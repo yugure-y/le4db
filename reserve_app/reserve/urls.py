@@ -8,4 +8,7 @@ urlpatterns = [
     path('detail/<pk>', views.ReservationDetailView.as_view(),
         name='reserve-detail',
     ),
+    path('accept', views.AcceptView.as_view(),
+        name='accept',
+    ),
 ]
