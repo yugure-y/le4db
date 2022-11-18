@@ -11,4 +11,7 @@ urlpatterns = [
     path('accept', views.AcceptView.as_view(),
         name='accept',
     ),
+    path('delete/<pk>', views.CancelReservationView.as_view(),
+        name='reserve-cancel',
+    ),
 ]

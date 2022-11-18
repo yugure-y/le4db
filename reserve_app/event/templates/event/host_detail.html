@@ -1,0 +1,72 @@
+{% extends 'home/base-light.html' %} {% load static %} {% load django_bootstrap5 %} {% block title %} イベント登録 {% endblock title %}
+
+{% block contents %}
+
+<div class="container-fluid">
+    <br>
+
+    <div class="card">
+        <div class="card-header">
+            <h1>イベント詳細情報</h1><br>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-striped">
+                <tbody>
+                  <tr>
+                    <td>イベント名</td>
+                    <td>{{ event.title }}</td>
+                  </tr>
+                  <tr>
+                    <td>日時</td>
+                    <td>{{ event.dete }}</td>
+                  </tr>
+                  <tr>
+                    <td>場所</td>
+                    <td>{{ event.place }}</td>
+                  </tr>
+                  <tr>
+                    <td>定員</td>
+                    <td>{{ count }} / {{ event.capacity }}</td>
+                  </tr>
+                  <tr>
+                    <td>受付済</td>
+                    <td>{{ accepted_count }} / {{ count }}</td>
+                  </tr>
+                </tbody>
+            </table>
+
+            <br>
+
+            <table class="table table-striped">
+              <tbody>
+                {% for s in staff %}
+                <tr>
+                  <td>{{ s.id }}</td>
+                  <td>{{ s.name }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <br>
+
+            <table class="table table-striped">
+              <tbody>
+                {% for u in accepted_user %}
+                <tr>
+                  <td>{{ u.id }}</td>
+                  <td>{{ u.name }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <a href="{% url 'event:event-host-update' event.pk %}" type="button" class="btn btn-warning">編集</a>
+            <a href="{% url 'event:event-host-delete' event.pk %}" type="button" class="btn btn-danger">削除</a>
+        </div>
+    </div>
+</div>
+
+    
+{% endblock %}

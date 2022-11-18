@@ -25,6 +25,10 @@
       <div class="text-right">
         <a href="{% url 'reserve:reserve-detail' reserve.pk %}" type="button" class="btn btn-primary">QRコード確認</a>
       </div>
+      <br>
+      <div class="text-right">
+        <a href="{% url 'reserve:reserve-cancel' reserve.pk %}" type="button" class="btn btn-danger">予約取消</a>
+      </div>
     </div>
   </div>
   {% endfor %}

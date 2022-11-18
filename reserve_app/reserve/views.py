@@ -1,5 +1,6 @@
 from django.views import generic
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from reserve.models import Reservation
 from reserve.forms import AcceptForm
 
@@ -47,3 +48,8 @@ class AcceptView(generic.FormView):
     def form_invalid(self, form):
         messages.error(self.request, "不正なQRコードです。")
         return super().form_invalid(form)
+
+class CancelReservationView(generic.DeleteView):
+    model = Reservation
+    template_name = "reserve/delete.html"
+    success_url = reverse_lazy('home:home-index')

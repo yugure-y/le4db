@@ -1,0 +1,24 @@
+{% extends 'home/base-light.html' %} {% load static %} {% load django_bootstrap5 %} {% block title %} イベント登録 {% endblock title %}
+
+{% block contents %}
+
+<div class="container-fluid">
+    <br>
+
+    <div class="card">
+        <div class="card-header">
+            <h1>イベント情報修正</h1><br>
+        </div>
+
+        <div class="card-body">
+            <form action="" method="post">{% csrf_token %} {% bootstrap_form form %}<br>
+                <input type="hidden" name="{{ stage_field }}" value="1" />
+                <button type="submit" id="ok" class="btn btn-primary btn-block">OK</button>
+                <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+        </div>
+    </div>
+</div>
+
+    
+{% endblock %}

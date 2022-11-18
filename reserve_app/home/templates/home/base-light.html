@@ -36,7 +36,7 @@
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <!-- Navbar Header-->
               <div class="navbar-header">
-                <!-- Navbar Brand --><a href="index.html" class="navbar-brand d-none d-sm-inline-block">
+                <!-- Navbar Brand --><a href="{% url 'home:home-index' %}" class="navbar-brand d-none d-sm-inline-block">
                   <div class="brand-text d-none d-lg-inline-block"><span>Event</span><strong>Reservation</strong></div>
                   <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>SA</strong></div></a>
                 <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
@@ -44,31 +44,7 @@
               <!-- Navbar Menu -->
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Notifications-->
-                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell-o"></i><span class="badge bg-red badge-corner">1</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                  </ul>
-                </li>
                 <!-- Messages-->
-                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope-o"></i><span class="badge bg-orange badge-corner">10</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Jason Doe</h3><span>Sent You Message</span>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Frank Williams</h3><span>Sent You Message</span>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Ashley Wood</h3><span>Sent You Message</span>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>Read all messages   </strong></a></li>
-                  </ul>
-                </li>
                 <!-- Logout    -->
                 <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
               </ul>
@@ -94,7 +70,8 @@
           </ul><span class="heading">Staff Only</span>
           <ul class="list-unstyled">
             <li> <a href="{% url 'reserve:accept' %}"> <i class="icon-form"></i>受付画面 </a></li>
-            <li> <a href="{% url 'event:event-registration' %}"> <i class="icon-screen"></i>イベント登録 </a></li>
+            <li> <a href="{% url 'event:event-registration' %}"> <i class="icon-screen"></i>新規イベント登録 </a></li>
+            <li> <a href="{% url 'event:event-host-list' %}"> <i class="icon-screen"></i>イベント管理 </a></li>
           </ul>
           </ul><span class="heading">Admin Only</span>
           <ul class="list-unstyled">
@@ -108,10 +85,8 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-sm-6">
-                  <p>&copy; yugure</p>
                 </div>
                 <div class="col-sm-6 text-right">
-                  <p>Developed By Yugure</p>
                   <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
                 </div>
               </div>

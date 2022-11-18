@@ -26,3 +26,21 @@ class Event(models.Model):
     capacity = models.IntegerField(
         verbose_name = '定員'
     )
+
+    staff = models.ForeignKey(
+        'home.Account',
+        on_delete = models.CASCADE,
+        related_name = 's',
+        verbose_name = 'スタッフ',
+        null = True,
+        blank = True
+    )
+
+    host = models.ForeignKey(
+        'home.Account',
+        on_delete = models.CASCADE,
+        related_name = 'h',
+        verbose_name = '主催者',
+        null = True,
+        blank = True
+    )
