@@ -19,7 +19,7 @@
                   </tr>
                   <tr>
                     <td>日時</td>
-                    <td>{{ event.dete }}</td>
+                    <td>{{ event.date }}</td>
                   </tr>
                   <tr>
                     <td>場所</td>
@@ -36,11 +36,46 @@
                 </tbody>
             </table>
 
+            <a href="{% url 'event:event-host-update' event.pk %}" type="button" class="btn btn-warning">編集</a>
+            <a href="{% url 'event:event-host-delete' event.pk %}" type="button" class="btn btn-danger">削除</a>
             <br>
+            <br>
+            <br>
+            <h4>予約ユーザーの一覧</h4>
 
             <table class="table table-striped">
+              <thead>
+                <tr>
+                  <td>通し番号</td>
+                  <td>ユーザー名</td>
+                  <td>トークン</td>
+                  <td>受付済</td>
+                </tr>
+              </thead>
               <tbody>
-                {% for s in staff %}
+                {% for u in reserved %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ u.user }}</td>
+                  <td>{{ u.token }}</td>
+                  <td>{{ u.accepted }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <br>
+            <h4>スタッフユーザーの一覧</h4>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <td>通し番号</td>
+                  <td>ユーザー名</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% for s in reserved.staff %}
                 <tr>
                   <td>{{ s.id }}</td>
                   <td>{{ s.name }}</td>
@@ -50,20 +85,24 @@
             </table>
 
             <br>
+            <h4>主催者の一覧</h4>
 
             <table class="table table-striped">
-              <tbody>
-                {% for u in accepted_user %}
+              <thead>
                 <tr>
-                  <td>{{ u.id }}</td>
-                  <td>{{ u.name }}</td>
+                  <td>通し番号</td>
+                  <td>ユーザー名</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% for h in reserved.host %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ h.name }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
-
-            <a href="{% url 'event:event-host-update' event.pk %}" type="button" class="btn btn-warning">編集</a>
-            <a href="{% url 'event:event-host-delete' event.pk %}" type="button" class="btn btn-danger">削除</a>
         </div>
     </div>
 </div>

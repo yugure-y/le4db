@@ -43,6 +43,8 @@ class EventHostDetailView(generic.DetailView):
         id = self.kwargs['pk']
         context['count'] = Reservation.objects.filter(event=id).count()
         context['accepted_count'] = Reservation.objects.filter(event=id, accepted=True).count()
+        context['reserved'] = Reservation.objects.filter(event=id)
+        context['staff'] = Reservation.objects.filter(event=id)
         return context
 
 class EventHostUpdateView(generic.UpdateView):
